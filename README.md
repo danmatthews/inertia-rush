@@ -1,11 +1,13 @@
 Work in progress.
 
+In your routes file:
 ```php
-Route::rush('/posts', RushComponent::class);
+Route::rush('/posts', PostsController::class);
 ```
 
+In your controller:
 ```php
-class Posts extends RushComponent {
+class PostsController extends RushController {
 
     // Set the view using a property.
     public $view = 'Pages/Posts';
@@ -15,11 +17,19 @@ class Posts extends RushComponent {
         return 'Pages/Posts';
     }
 
-    // Any function is callable from within by simply calling Rush.methodName and is passed the parameters
-    // supplied.
-    public function methodName($param, $param2, $param3)
+    // Define your functions as if you were writing them using AJAX + Routes
+    // Rush handles the URL plumbing for you.
+    
+    #[HttpVerb('GET')]
+    public function getPosts()
     {
 
+    }
+    
+    /* POST is the default, so no verb needs to be specified */
+    public function createPost()
+    {
+        
     }
 
     // Specify an HTTP verb using an attribute (the default is POST)
