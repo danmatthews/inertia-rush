@@ -12,9 +12,14 @@ class PostsController extends RushController {
     // Set the view using a property.
     public $view = 'Pages/Posts';
 
-    // ... or using a function if you need logic.
-    public function view() {
+    // ... or using a function if you need logic to decide which one to use.
+    public function view(): string {
         return 'Pages/Posts';
+    }
+    
+    // Return the data
+    public function data(): array {
+        return ['posts' => Post::all()];
     }
 
     // Define your functions as if you were writing them using AJAX + Routes
@@ -35,7 +40,13 @@ class PostsController extends RushController {
     // Specify an HTTP verb using an attribute (the default is POST)
     #[HttpVerb('DELETE')]
     public function deletePost() {
-
+        request()->validate(['id' => 'required|exists:posts,id']);
     }
 }
+```
+
+In your Vue/Svelte/React files, call your abritrary methods:
+
+```
+await Rush.deletePost({id: 241});
 ```
